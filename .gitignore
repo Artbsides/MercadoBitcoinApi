@@ -1,0 +1,12 @@
+#
+# IGNORE
+#
+
+__pycache__
+.vscode/*
+
+#
+# IGNORE EXCEPTIONS
+#
+
+!.vscode/launch.json
