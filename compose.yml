@@ -1,6 +1,18 @@
 version: "3.9"
 
 services:  
+  redis:
+    image: redis:7.0
+    container_name: pelando-api.redis
+    command: >
+      --appendonly yes
+      --port ${REDIS_PORT}
+      --requirepass ${REDIS_PASSWORD}
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    volumes:
+      - redis:/redis/data
+
   postgres:
     image: postgres:15.2
     container_name: mercado-bitcoin-api.postgres
@@ -14,4 +26,5 @@ services:
       - postgres:/postgres/data
 
 volumes:
+  redis:
   postgres:

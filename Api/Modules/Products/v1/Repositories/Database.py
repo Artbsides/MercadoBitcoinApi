@@ -21,7 +21,7 @@ class ProductsDatabaseRepository:
     def get(self, product_id: UUID) -> Product:
         return self.database.query(Product).get(product_id)
 
-    def uodate(self, product: Product) -> Product:
+    def update(self, product: Product) -> Product:
         return self.database.query(Product).update(product)
 
     def delete(self, product_id: UUID) -> Product:

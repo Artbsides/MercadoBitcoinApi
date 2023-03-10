@@ -12,9 +12,9 @@ Base = declarative_base()
 SessionLocal = sessionmaker(bind = Engine)
 
 def getDatabase():
-  database = scoped_session(SessionLocal)
+  session = scoped_session(SessionLocal)
 
   try:
-    yield database
+    yield session
   finally:
-    database.close()
+    session.close()

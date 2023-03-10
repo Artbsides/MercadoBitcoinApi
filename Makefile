@@ -25,6 +25,10 @@ help:
 	@$(PYTHON) -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 
+
+redis:  ## A
+	@docker-compose up -d redis
+
 postgres:  ## A
 	@docker-compose up -d postgres
 
