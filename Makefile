@@ -25,13 +25,13 @@ help:
 	@$(PYTHON) -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 
-postgres:  ##
+postgres:  ## A
 	@docker-compose up -d postgres
 
-packages:  ##
-	@pip install -r requirements/development.txt
+packages:  ## A
+	@pip3 install -r requirements/development.txt
 
-run:  ## 
+run:  ## A
 	@uvicorn Api.Main:app --reload
 
 
