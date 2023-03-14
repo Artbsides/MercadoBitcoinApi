@@ -35,6 +35,9 @@ postgres:  ## A
 packages:  ## A
 	@pip3 install -r requirements/development.txt
 
+database-migrations:  ## A
+	@alembic upgrade head
+
 run:  ## A
 	@uvicorn Api.Main:app --reload
 

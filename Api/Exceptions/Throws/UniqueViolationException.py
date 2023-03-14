@@ -1,9 +1,7 @@
-class UniqueViolationException:
-    title: str
-    message: str
+from http import HTTPStatus
 
-    def __init__(self, title: str, message: str):
-        self.title = title
-        self.message = message
 
-        self.code = 404
+class UniqueViolationException(Exception):
+    title: str = "UniqueViolation"
+    message: str = "Unique key database violation"
+    status_code = HTTPStatus.BAD_REQUEST
