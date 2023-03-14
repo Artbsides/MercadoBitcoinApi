@@ -23,14 +23,17 @@ class ProductsService:
         return product
 
     def getAll(self) -> list[Product]:
-        return self.productsDatabaseRepository.getAll()
+        return self.productsCacheRepository.getAll() \
+            or self.productsDatabaseRepository.getAll()
 
     def get(self, product_id: UUID) -> Product:
         return self.productsCacheRepository.get(product_id) or \
             self.productsDatabaseRepository.get(product_id)
 
-    def update(self, product: Product) -> Product:
-        return self.productsDatabaseRepository.update(product)
+    def update(self, product: Product) -> None:
+        if (self.productsDatabaseRepository.update(product)):
+            self.productsCacheRepository.update(product)
 
-    def delete(self, product_id: UUID) -> Product:
-        return self.productsDatabaseRepository.update(product_id)
+    def delete(self, product_id: UUID) -> None:
+        if (self.productsDatabaseRepository.delete(product_id)):
+            self.productsCacheRepository.delete(product_id)

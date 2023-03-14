@@ -1,5 +1,5 @@
 import json
-import pickle
+
 from uuid import UUID
 from fastapi import Depends
 from redis import Redis
@@ -9,17 +9,27 @@ from Api.Modules.Products.v1.Models.Product import Product
 
 
 class ProductsCacheRepository:
-    def __init__(self, cache = Depends(getCache)) -> None:
+    def __init__(self, cache: Redis = Depends(getCache)) -> None:
         self.cache = cache
 
     def create(self, product: Product) -> Product:
-        self.cache.set(str(product.id), json.dumps(jsonable_encoder(product.to_dict())))
+        self.cache.set(str(product.id),
+            json.dumps(jsonable_encoder(product.toDict())))
 
         return product
+
+    def getAll(self) -> list[Product]:
+        return [
+            json.loads(product) for
+                product in self.cache.mget(self.cache.keys())
+        ]
 
     def get(self, product_id: UUID) -> Product:
         return json.loads(self.cache.get(str(product_id))
             or "{}")
 
-    def delete(self, product_id: UUID) -> Product:
-        return self.cache.delete(product_id)
+    def update(self, product: Product) -> None:
+        self.create(product)
+
+    def delete(self, product_id: UUID) -> None:
+        self.cache.delete(str(product_id))

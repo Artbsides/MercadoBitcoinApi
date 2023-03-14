@@ -1,4 +1,5 @@
 from uuid import UUID
+from http import HTTPStatus
 from fastapi import APIRouter, Depends
 from Api.Modules.Products.v1.Dtos.Product import ProductDto
 from Api.Modules.Products.v1.Models.Product import Product
@@ -13,7 +14,7 @@ class ProductsController:
         prefix="/products"
     )
 
-    @router.post("/")
+    @router.post("/", status_code = HTTPStatus.CREATED)
     def create(product: ProductDto, productsService: ProductsService = Depends()) -> object:
         product: Product = productsService.create(product.toModel())
 
@@ -34,14 +35,10 @@ class ProductsController:
             "data": productsService.get(product_id)
         }
 
-    @router.patch("/{product_id}")
-    def update(product: ProductDto, productsService: ProductsService = Depends()) -> object:
-        product: Product = productsService.update(product.toModel())
+    @router.patch("/{product_id}", status_code = HTTPStatus.NO_CONTENT)
+    def update(product_id: UUID, product: ProductDto, productsService: ProductsService = Depends()) -> None:
+        productsService.update(product.toModel(product_id))
 
-        return {
-            "data": product
-        }
-
-    @router.delete("/{product_id}")
-    def delete(product_id: UUID, productsService: ProductsService = Depends()) -> object:
-        return productsService.delete(product_id)
+    @router.delete("/{product_id}", status_code = HTTPStatus.NO_CONTENT)
+    def delete(product_id: UUID, productsService: ProductsService = Depends()) -> None:
+        productsService.delete(product_id)

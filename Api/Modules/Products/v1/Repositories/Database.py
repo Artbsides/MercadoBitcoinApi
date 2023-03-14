@@ -9,11 +9,8 @@ class ProductsDatabaseRepository:
     def __init__(self, database: Session = Depends(getDatabase)) -> None:
         self.database = database
 
-    def create(self, product: Product) -> Product:
+    def create(self, product: Product) -> None:
         self.database.add(product)
-        self.database.commit()
-
-        return product
 
     def getAll(self) -> list[Product]:
         return self.database.query(Product).all()
@@ -22,7 +19,15 @@ class ProductsDatabaseRepository:
         return self.database.query(Product).get(product_id)
 
     def update(self, product: Product) -> Product:
-        return self.database.query(Product).update(product)
+        try:
+            return self.database.query(Product) \
+                .filter(Product.id == product.id).update(product.toDict())
+        finally:
+            pass
 
-    def delete(self, product_id: UUID) -> Product:
-        return self.database.query(Product).delete(product_id)
+    def delete(self, product_id: UUID) -> int:
+        try:
+            return self.database.query(Product) \
+                .filter(Product.id == product_id).delete()
+        finally:
+            pass
