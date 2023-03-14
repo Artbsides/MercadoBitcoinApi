@@ -33,7 +33,8 @@ postgres:  ## A
 	@docker-compose up -d postgres
 
 packages:  ## A
-	@pip3 install -r requirements/development.txt
+	@COMPOSE_DEVELOPMENT_COMMAND="pip3 install -r requirements/development.txt" \
+		docker-compose -f compose.yml -f compose.development.yml up mercado-bitcoin-api
 
 database-migrations:  ## A
 	@alembic upgrade head

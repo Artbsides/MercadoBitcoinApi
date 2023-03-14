@@ -1,25 +1,22 @@
-import os
-import traceback
+from http import HTTPStatus
+import importlib
 
-from fastapi import FastAPI, Request
+from fastapi import Request
 from fastapi.responses import JSONResponse
+from Api.Exceptions.Throws.InternalServerErrorException import InternalServerErrorException
 
 
-def exceptionHandler(_: Request, exception: Exception) -> JSONResponse:
-   # exception.orig.__class__.__name__
+class ExceptionHandler:
+  def throw(request: Request, exception: Exception) -> JSONResponse:
+    klass = type(exception).__name__
 
-   data: object = {
-      "error": {
-         "title": getattr(exception, "title",
-            "InternalServerError"
-         ),
-         "message": getattr(exception, "message",
-            "An internal error occurred"
-         )
-      }
-   }
+    try:
+      exception: Exception = \
+        getattr(importlib.import_module(f"Api.Exceptions.Throws.{ klass }"), klass)(exception)
+    except Exception as e:
+      exception: Exception = InternalServerErrorException(e)
 
-   if (os.getenv("API_ENVIRONMENT") == "development"):
-      data["trace"] = "".join(traceback.TracebackException.from_exception(exception).format())
+    if (exception.status_code == HTTPStatus.INTERNAL_SERVER_ERROR):
+      print("==== send exception to sentry")
 
-   return JSONResponse(status_code = getattr(exception, "status_code", ), content = data)
+    return JSONResponse({ "data": exception.attrs }, exception.status_code)

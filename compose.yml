@@ -3,7 +3,7 @@ version: "3.9"
 services:  
   redis:
     image: redis:7.0
-    container_name: pelando-api.redis
+    container_name: mercado-bitcoin-api.redis
     command: >
       --appendonly yes
       --port ${REDIS_PORT}

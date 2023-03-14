@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  pelando-api:
+    image: mercado-bitcoin-api:development
+    command: ${COMPOSE_DEVELOPMENT_COMMAND:-}
+    build:
+      target: development
+    ports:
+      - ${API_PORT}:${API_PORT}
+      - ${API_PORT_DEBUG}:${API_PORT_DEBUG}
+    volumes:
+        - .:/mercado-bitcoin-api

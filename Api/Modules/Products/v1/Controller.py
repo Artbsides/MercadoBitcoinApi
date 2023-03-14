@@ -15,7 +15,7 @@ class ProductsController:
     )
 
     @router.post("/", status_code = HTTPStatus.CREATED)
-    def create(product: ProductDto, productsService: ProductsService = Depends()) -> object:
+    def create(product: ProductDto, productsService: ProductsService = Depends()) -> dict:
         product: Product = productsService.create(product.toModel())
 
         return {
@@ -24,13 +24,13 @@ class ProductsController:
 
 
     @router.get("/")
-    def getAll(productsService: ProductsService = Depends()) -> object:
+    def getAll(productsService: ProductsService = Depends()) -> dict:
         return {
             "data": productsService.getAll()
         }
 
     @router.get("/{product_id}")
-    def get(product_id: UUID, productsService: ProductsService = Depends()) -> object:
+    def get(product_id: UUID, productsService: ProductsService = Depends()) -> dict:
         return {
             "data": productsService.get(product_id)
         }

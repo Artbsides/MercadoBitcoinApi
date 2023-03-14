@@ -2,8 +2,8 @@ from uuid import UUID
 from fastapi import Depends
 from sqlalchemy.orm import Session
 from Api.Confs.Database import getDatabase
-from Api.Exceptions.Throws.NotFoundException import NotFoundException
 from Api.Modules.Products.v1.Models.Product import Product
+from Api.Exceptions.Throws.NotFoundException import NotFoundException
 
 
 class ProductsDatabaseRepository:
@@ -20,19 +20,31 @@ class ProductsDatabaseRepository:
         return self.database.query(Product).all()
 
     def get(self, product_id: UUID) -> Product:
-        return self.database.query(Product).get(product_id)
+        product: Product = self.database.query(Product) \
+            .get(product_id)
+
+        if (product is None):
+            raise NotFoundException
+
+        return product
 
     def update(self, product: Product) -> float:
         try:
-            if(self.database.query(Product).filter(Product.id == product.id).update(product.toDict()) == 0):
-                raise NotFoundException
-        
-            return True
+            status: int = self.database \
+              .query(Product).filter(Product.id == product.id).update(product.toDict())
+
+            if (status == 0):
+              raise NotFoundException
         finally:
             self.database.flush()
 
-    def delete(self, product_id: UUID) -> float:
-        if (self.database.query(Product).filter(Product.id == product_id).delete() == 0):
-            raise NotFoundException
+        return status
 
-        return True
+    def delete(self, product_id: UUID) -> float:
+        status: int = self.database \
+          .query(Product).filter(Product.id == product_id).delete()
+
+        if (status == 0):
+          raise NotFoundException
+
+        return status
