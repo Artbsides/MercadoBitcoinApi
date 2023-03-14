@@ -4,13 +4,14 @@ from Api.Modules.Products.v1.Models.Product import Product
 
 
 class ProductDto(BaseModel):
-    name: str
+  name: str
 
-    def toModel(self, product_id: Optional[str] = None) -> Product:
-        product: Product = Product(
-            name = self.name
-        )
+  def toModel(self, product_id: Optional[str] = None) -> Product:
+    product: Product = Product(
+      name = self.name
+    )
 
-        product.id = product_id
+    if (product_id):
+      product.id = product_id
 
-        return product
+    return product

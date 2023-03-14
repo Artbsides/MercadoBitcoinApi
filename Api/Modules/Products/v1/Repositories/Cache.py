@@ -9,27 +9,27 @@ from Api.Modules.Products.v1.Models.Product import Product
 
 
 class ProductsCacheRepository:
-    def __init__(self, cache: Redis = Depends(getCache)) -> None:
-        self.cache = cache
+  def __init__(self, cache: Redis = Depends(getCache)) -> None:
+    self.cache = cache
 
-    def create(self, product: Product) -> Product:
-        self.cache.set(str(product.id),
-            json.dumps(jsonable_encoder(product.toDict())))
+  def create(self, product: Product) -> Product:
+    self.cache.set(str(product.id),
+      json.dumps(jsonable_encoder(product.toDict())))
 
-        return product
+    return product
 
-    def getAll(self) -> list[Product]:
-        return [
-            json.loads(product) for
-                product in self.cache.mget(self.cache.keys())
-        ]
+  def getAll(self) -> list[Product]:
+    return [
+      json.loads(product) for
+        product in self.cache.mget(self.cache.keys())
+    ]
 
-    def get(self, product_id: UUID) -> Product:
-        return json.loads(self.cache.get(str(product_id))
-            or "{}")
+  def get(self, product_id: UUID) -> Product:
+    return json.loads(self.cache.get(str(product_id))
+      or "{}")
 
-    def update(self, product: Product) -> None:
-        self.create(product)
+  def update(self, product: Product) -> None:
+    self.create(product)
 
-    def delete(self, product_id: UUID) -> None:
-        self.cache.delete(str(product_id))
+  def delete(self, product_id: UUID) -> None:
+    self.cache.delete(str(product_id))

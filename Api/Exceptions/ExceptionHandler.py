@@ -1,9 +1,9 @@
-from http import HTTPStatus
 import importlib
 
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from Api.Exceptions.Throws.InternalServerErrorException import InternalServerErrorException
+from http import HTTPStatus
+from Api.Exceptions.Throws.InternalServerError import InternalServerErrorException
 
 
 class ExceptionHandler:

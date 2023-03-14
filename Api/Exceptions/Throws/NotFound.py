@@ -2,13 +2,13 @@ from http import HTTPStatus
 from typing import Optional
 
 
-class InternalServerErrorException(Exception):
+class NotFound(Exception):
   def __init__(self, exception: Optional[Exception] = None) -> None:
     self.attrs: dict = {
-      "title": "Internal Server Error",
+      "title": "Not Found",
       "error_messages": [
-        "An internal error occurred"
+        "Resource not found"
       ]
     }
 
-    self.status_code = HTTPStatus.INTERNAL_SERVER_ERROR
+    self.status_code = HTTPStatus.NOT_FOUND
