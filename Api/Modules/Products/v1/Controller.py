@@ -1,8 +1,7 @@
 from uuid import UUID
 from http import HTTPStatus
 from fastapi import APIRouter, Depends
-from Api.Modules.Products.v1.Dtos.Product import ProductDto
-from Api.Modules.Products.v1.Models.Product import Product
+from Api.Modules.Products.v1.Dtos.ProductDto import ProductDto
 from Api.Modules.Products.v1.Service import ProductsService
 
 

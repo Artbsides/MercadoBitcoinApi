@@ -26,6 +26,12 @@ help:
 
 
 
+build:  ## Build images
+	@docker-compose build
+
+	@echo
+	@docker-compose -f compose.yml -f compose.development.yml build
+
 redis:  ## A
 	@docker-compose up -d redis
 
@@ -33,14 +39,29 @@ postgres:  ## A
 	@docker-compose up -d postgres
 
 packages:  ## A
-	@COMPOSE_DEVELOPMENT_COMMAND="pip3 install -r requirements/development.txt" \
-		docker-compose -f compose.yml -f compose.development.yml up mercado-bitcoin-api
+	@COMPOSE_DEVELOPMENT_COMMAND="pip install -r requirements/tests.txt" \
+		docker-compose -f compose.yml -f compose.development.yml up app
 
 database-migrations:  ## A
 	@alembic upgrade head
 
-run:  ## A
-	@uvicorn Api.Main:app --reload
+tests: -B  ## Run api tests
+	@COMPOSE_DEVELOPMENT_COMMAND="python -m pytest" \
+		docker-compose -f compose.yml -f compose.development.yml up app
+
+code-convention:  ## Run code convention
+	@COMPOSE_DEVELOPMENT_COMMAND="flake8 Api ApiTests" \
+		docker-compose -f compose.yml -f compose.development.yml up app
+
+run:  ## Run api. mode=development|production
+ifeq ("$(mode)", "production")
+	@docker-compose up app
+else ifeq ("$(mode)", "development")
+	@COMPOSE_DEVELOPMENT_COMMAND="uvicorn Api.Main:app --host ${APP_HOST} --port ${APP_HOST_PORT} --reload" \
+		docker-compose -f compose.yml -f compose.development.yml up app
+else
+	@echo ==== Mode not found.
+endif
 
 
 %:

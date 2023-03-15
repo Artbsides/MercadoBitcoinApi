@@ -12,11 +12,9 @@ class ProductsCacheRepository:
   def __init__(self, cache: Redis = Depends(getCache)) -> None:
     self.cache = cache
 
-  def create(self, product: Product) -> Product:
+  def create(self, product: Product) -> None:
     self.cache.set(str(product.id),
       json.dumps(jsonable_encoder(product.toDict())))
-
-    return product
 
   def getAll(self) -> list[Product]:
     return [

@@ -23,28 +23,28 @@ class ProductsDatabaseRepository:
     product: Product = self.database.query(Product) \
       .get(product_id)
 
-    if (product is None):
+    if product is None:
       raise NotFound
 
     return product
 
-  def update(self, product: Product) -> float:
+  def update(self, product: Product) -> int:
     try:
       status: int = self.database \
         .query(Product).filter(Product.id == product.id).update(product.toDict())
 
-      if (status == 0):
+      if status == 0:
         raise NotFound
     finally:
       self.database.flush()
 
     return status
 
-  def delete(self, product_id: UUID) -> float:
+  def delete(self, product_id: UUID) -> int:
     status: int = self.database \
       .query(Product).filter(Product.id == product_id).delete()
 
-    if (status == 0):
+    if status == 0:
       raise NotFound
 
     return status

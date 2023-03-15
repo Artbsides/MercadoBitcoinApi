@@ -31,9 +31,9 @@ class ProductsService:
       self.productsDatabaseRepository.get(product_id)
 
   def update(self, product: Product) -> None:
-    if (self.productsDatabaseRepository.update(product)):
+    if self.productsDatabaseRepository.update(product):
       self.productsCacheRepository.update(product)
 
   def delete(self, product_id: UUID) -> None:
-    if (self.productsDatabaseRepository.delete(product_id)):
+    if self.productsDatabaseRepository.delete(product_id):
       self.productsCacheRepository.delete(product_id)

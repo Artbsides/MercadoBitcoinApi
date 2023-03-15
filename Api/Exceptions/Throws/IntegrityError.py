@@ -1,9 +1,8 @@
 from http import HTTPStatus
-from typing import Optional
 
 
 class IntegrityError(Exception):
-  def __init__(self, exception: Optional[Exception] = None) -> None:
+  def __init__(self, exception: Exception = None) -> None:
     self._error_messages: list[str] = [
       exception.orig.diag.message_primary,
       exception.orig.diag.message_detail

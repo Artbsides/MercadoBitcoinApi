@@ -25,6 +25,22 @@ services:
     volumes:
       - postgres:/postgres/data
 
+  app:
+    image: mercado-bitcoin-api:latest
+    container_name: mercado-bitcoin-api
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      APP_ENVIRONMENT: ${APP_ENVIRONMENT}
+      APP_HOST: ${APP_HOST}
+      APP_HOST_PORT: ${APP_HOST_PORT}
+      REDIS_CONNECTION_STRING: ${REDIS_CONNECTION_STRING}
+      POSTGRES_CONNECTION_STRING: ${POSTGRES_CONNECTION_STRING}
+    ports:
+      - ${APP_HOST_PORT}:${APP_HOST_PORT}
+
 volumes:
   redis:
   postgres:
