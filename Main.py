@@ -6,10 +6,12 @@ from fastapi import Depends, FastAPI
 from Api.Utils.Authorization import authorization
 from Api.Confs.Router import router
 from Api.Exceptions.ExceptionHandler import ExceptionHandler
+from fastapi.security import HTTPBearer
 
 
 app = FastAPI(
   dependencies = [
+    Depends(HTTPBearer()),
     Depends(authorization)
   ]
 )
