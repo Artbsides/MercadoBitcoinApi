@@ -7,10 +7,10 @@ from Api.Modules.Products.v1.Service import ProductsService
 
 class ProductsController:
   router = APIRouter(
-    tags=[
+    tags = [
       "Products"
     ],
-    prefix="/products"
+    prefix = "/v1/products"
   )
 
   @router.post("/", status_code = HTTPStatus.CREATED)

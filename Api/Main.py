@@ -1,10 +1,15 @@
 import os
 import uvicorn
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
+from Api.Utils.Authorization import authorization
 
 
-app = FastAPI()
+app = FastAPI(
+  dependencies = [
+    Depends(authorization)
+  ]
+)
 
 if __name__ == "__main__":
   uvicorn.run(app, host=os.getenv("APP_HOST"), port=int(os.getenv("APP_HOST_PORT")))
