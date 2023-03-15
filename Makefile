@@ -32,17 +32,17 @@ build:  ## Build images
 	@echo
 	@docker-compose -f compose.yml -f compose.development.yml build
 
-redis:  ## A
+redis:  ## Up redis in background mode
 	@docker-compose up -d redis
 
-postgres:  ## A
+postgres:  ## Up postgres in background mode
 	@docker-compose up -d postgres
 
-packages:  ## A
+packages:  ## Run pip install packages
 	@COMPOSE_DEVELOPMENT_COMMAND="pip install -r requirements/tests.txt" \
 		docker-compose -f compose.yml -f compose.development.yml up app
 
-database-migrations:  ## A
+database-migrations:  ## Run alembic database migrations
 	@COMPOSE_DEVELOPMENT_COMMAND="alembic upgrade head" \
 		docker-compose -f compose.yml -f compose.development.yml up appalembic upgrade head
 
