@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: marcado-bitcoin-api-service
+  namespace: production-apps
+spec:
+  selector:
+    app: marcado-bitcoin-api
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 8082
+      protocol: TCP
+      targetPort: 80
