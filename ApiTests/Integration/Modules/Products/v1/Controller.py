@@ -1,45 +1,39 @@
 import os
 import jwt
 import unittest
-import datetime
 
 from http import HTTPStatus
 from uuid import UUID, uuid4
+from datetime import datetime, timedelta
 from fastapi import Response
 from fastapi.testclient import TestClient
-from Api.Main import app
+from Main import app
 from Api.Modules.Products.v1.Models.Product import Product
 from Api.Modules.Products.v1.Repositories.Cache import ProductsCacheRepository
 from Api.Modules.Products.v1.Repositories.Database import ProductsDatabaseRepository
 
 
 class TestProductsController(unittest.TestCase):
-  jwtToken = jwt.encode({
-    "exp": datetime.datetime.now() + datetime.timedelta(seconds=30) }, os.getenv("JWT_SECRET"), os.getenv("JWT_ALGORITHM"))
+  jwtToken = jwt.encode({ "exp": datetime.now() + timedelta(seconds=30) },
+    os.getenv("JWT_SECRET"), os.getenv("JWT_ALGORITHM"))
 
   client = TestClient(app)
 
   class ProductsRepositoryMock:
-    def create(self, _: Product) -> Product:
-      return None
-
-    def getAll(self) -> list[Product]:
-      return []
-
-    def get(self, _: UUID) -> Product:
-      return None
-
-    def update(self, _: Product) -> None:
+    def create(self, _: Product):
       pass
 
-    def delete(self, _: UUID) -> None:
+    def getAll(self):
       pass
 
-    def update(self, _: Product) -> int:
-      return 1
+    def get(self, _: UUID):
+      pass
 
-    def delete(self, _: UUID) -> int:
-      return 1
+    def update(self, _: Product):
+      pass
+
+    def delete(self, _: UUID):
+      pass
 
   def testPost(self) -> None:
     app.dependency_overrides[ProductsCacheRepository] = \

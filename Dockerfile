@@ -13,5 +13,6 @@ COPY ./requirements/development.txt /mercado-bitcoin-api/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /mercado-bitcoin-api/requirements.txt
 
 COPY ./Api /mercado-bitcoin-api/Api
+COPY ./Main.py /mercado-bitcoin-api/Main.py
 
-CMD ["python", "Api/Main.py"]
+CMD ["python", "Main.py"]

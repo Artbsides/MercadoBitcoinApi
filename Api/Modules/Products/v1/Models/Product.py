@@ -9,6 +9,6 @@ class Product(Base):
   name = Column(String, nullable=False, unique=True)
 
   def toDict(self):
-    return { c.name: getattr(self, c.name)
-      for c in self.__table__.columns
+    return {
+      c.name: getattr(self, c.name) for c in self.__table__.columns
     }

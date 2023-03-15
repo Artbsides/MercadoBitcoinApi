@@ -10,5 +10,5 @@ def authorization(request: Request) -> None:
     jwt.decode(request.headers["Authorization"].replace("Bearer ", ""), os.getenv("JWT_SECRET"), [
       os.getenv("JWT_ALGORITHM")
     ])
-  except:
+  except Exception:
     raise UnauthoeizedTokenError

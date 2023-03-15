@@ -18,13 +18,11 @@ class ProductsCacheRepository:
 
   def getAll(self) -> list[Product]:
     return [
-      json.loads(product) for
-        product in self.cache.mget(self.cache.keys())
+      json.loads(product) for product in self.cache.mget(self.cache.keys())
     ]
 
-  def get(self, product_id: UUID) -> Product:
-    return json.loads(self.cache.get(str(product_id))
-      or "{}")
+  def get(self, product_id: UUID) -> str:
+    return json.loads(self.cache.get(str(product_id)) or "{}")
 
   def update(self, product: Product) -> None:
     self.create(product)

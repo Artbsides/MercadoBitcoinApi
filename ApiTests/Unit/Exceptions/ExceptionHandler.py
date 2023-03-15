@@ -18,7 +18,7 @@ class TestExceptionHandler(unittest.TestCase):
 
     excpetion: JSONResponse = ExceptionHandler \
       .throw(request, NotFound())
-    
+
     self.assertIs(excpetion.status_code, HTTPStatus.NOT_FOUND)
     self.assertIsNotNone(excpetion.body)
 
@@ -32,7 +32,7 @@ class TestExceptionHandler(unittest.TestCase):
 
     excpetion: JSONResponse = ExceptionHandler \
       .throw(request, AttributeError())
-    
+
     self.assertIs(excpetion.status_code, HTTPStatus.INTERNAL_SERVER_ERROR)
     self.assertIsNotNone(excpetion.body)
 
@@ -46,7 +46,7 @@ class TestExceptionHandler(unittest.TestCase):
 
     excpetion: JSONResponse = ExceptionHandler \
       .throw(request, InternalServerError())
-    
+
     self.assertIs(excpetion.status_code, HTTPStatus.INTERNAL_SERVER_ERROR)
     self.assertIsNotNone(excpetion.body)
 

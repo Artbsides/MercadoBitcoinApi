@@ -43,7 +43,8 @@ packages:  ## A
 		docker-compose -f compose.yml -f compose.development.yml up app
 
 database-migrations:  ## A
-	@alembic upgrade head
+	@COMPOSE_DEVELOPMENT_COMMAND="alembic upgrade head" \
+		docker-compose -f compose.yml -f compose.development.yml up appalembic upgrade head
 
 tests: -B  ## Run api tests
 	@COMPOSE_DEVELOPMENT_COMMAND="python -m pytest" \
@@ -57,7 +58,7 @@ run:  ## Run api. mode=development|production
 ifeq ("$(mode)", "production")
 	@docker-compose up app
 else ifeq ("$(mode)", "development")
-	@COMPOSE_DEVELOPMENT_COMMAND="uvicorn Api.Main:app --host ${APP_HOST} --port ${APP_HOST_PORT} --reload" \
+	@COMPOSE_DEVELOPMENT_COMMAND="uvicorn Main:app --host ${APP_HOST} --port ${APP_HOST_PORT} --reload" \
 		docker-compose -f compose.yml -f compose.development.yml up app
 else
 	@echo ==== Mode not found.
