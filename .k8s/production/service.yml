@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: marcado-bitcoin-api-service
+  name: mercado-bitcoin-api-service
   namespace: production-apps
 spec:
   selector:
-    app: marcado-bitcoin-api
+    app: mercado-bitcoin-api
   type: LoadBalancer
   ports:
     - name: http
