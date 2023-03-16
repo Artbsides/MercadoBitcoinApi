@@ -20,7 +20,7 @@ Segue abaixo o fluxo exemplificando operações de consulta.
             |-->[Se sim, retorna dados do Redis]
             |-->[Se não, verifica se registro existe em PostgreSQL]
                     |
-                    |-->[Se sim, retorna dados do Postgres]
+                    |-->[Se sim, retorna dados do PostgreSQL]
                     |-->[Se não, lança exception NotFound]
 
     |-->[Retorna dados/exception no formato json]
