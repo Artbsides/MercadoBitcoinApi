@@ -2,14 +2,29 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: FastAPI",
+      "name": "Launch",
       "type": "python",
       "request": "launch",
       "module": "uvicorn",
       "args": [
         "Main:app", "--reload"
       ],
-      "jinja": true,
+      "justMyCode": true
+    },
+    {
+      "name": "Remote Attach",
+      "type": "python",
+      "request": "attach",
+      "connect": {
+        "host": "0.0.0.0",
+        "port": 5678
+      },
+      "pathMappings": [
+        {
+          "localRoot": "${workspaceFolder}",
+          "remoteRoot": "/mercado-bitcoin-api"
+        }
+      ],
       "justMyCode": true
     }
   ]

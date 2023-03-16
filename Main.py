@@ -3,6 +3,10 @@ import uvicorn
 import dotenv
 
 from fastapi import Depends, FastAPI
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import PlainTextResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
 from Api.Utils.Authorization import Authorization
 from Api.Confs.Router import router
 from Api.Exceptions.ExceptionHandler import ExceptionHandler
@@ -19,8 +23,9 @@ app = FastAPI(
 )
 
 app.include_router(router)
-app.add_exception_handler(Exception, ExceptionHandler.throw)
 
+app.add_exception_handler(Exception, ExceptionHandler.throw)
+app.add_exception_handler(StarletteHTTPException, ExceptionHandler.throw)
 
 if __name__ == "__main__":
   if (APP_ENVIRONMENT == "development"):

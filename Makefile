@@ -44,7 +44,7 @@ packages:  ## Run pip install packages
 
 database-migrations:  ## Run alembic database migrations
 	@COMPOSE_DEVELOPMENT_COMMAND="alembic upgrade head" \
-		docker-compose -f compose.yml -f compose.development.yml up appalembic upgrade head
+		docker-compose -f compose.yml -f compose.development.yml up app
 
 tests: -B  ## Run api tests
 	@COMPOSE_DEVELOPMENT_COMMAND="python -m pytest -s" \
@@ -87,11 +87,11 @@ else
 	@echo "==== Action not found."
 endif
 
-run:  ## Run api. mode=development|production
-ifeq ("$(mode)", "production")
+run:  ## Run api. mode=development|latest
+ifeq ("$(mode)", "latest")
 	@docker-compose up app
 else ifeq ("$(mode)", "development")
-	@COMPOSE_DEVELOPMENT_COMMAND="uvicorn Main:app --host ${APP_HOST} --port ${APP_HOST_PORT} --reload" \
+	@COMPOSE_DEVELOPMENT_COMMAND="python -u -m debugpy --listen ${APP_HOST}:${APP_DEBUG_PORT} -m uvicorn Main:app --host ${APP_HOST} --port ${APP_HOST_PORT} --reload" \
 		docker-compose -f compose.yml -f compose.development.yml up app
 else
 	@echo ==== Mode not found.
