@@ -1,0 +1,30 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mercado-bitcoin-api-deployment
+  namespace: production-apps
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: mercado-bitcoin-api
+  template:
+    metadata:
+      labels:
+        app: mercado-bitcoin-api
+    spec:
+      containers:
+        - name: mercado-bitcoin-api
+          image: docker.io/rempeloliveira/public:mercado-bitcoin-api.0.0.1
+          ports:
+            - containerPort: 80
+          envFrom:
+            - secretRef:
+                name: mercado-bitcoin-api-secrets
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
