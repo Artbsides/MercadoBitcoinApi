@@ -14,7 +14,7 @@ class ProductsController:
   )
 
   @router.post("/", status_code = HTTPStatus.CREATED)
-  def create(product: ProductDto, productsService: ProductsService = Depends()) -> dict:
+  def create(product: ProductDto.Create, productsService: ProductsService = Depends()) -> dict:
     return {
       "data": productsService.create(product.toModel())
     }
@@ -32,7 +32,7 @@ class ProductsController:
     }
 
   @router.patch("/{product_id}", status_code = HTTPStatus.NO_CONTENT)
-  def update(product_id: UUID, product: ProductDto, productsService: ProductsService = Depends()) -> None:
+  def update(product_id: UUID, product: ProductDto.Update, productsService: ProductsService = Depends()) -> None:
     productsService.update(product.toModel(product_id))
 
   @router.delete("/{product_id}", status_code = HTTPStatus.NO_CONTENT)

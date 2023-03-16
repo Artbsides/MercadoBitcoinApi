@@ -6,26 +6,26 @@ from Api.Modules.Products.v1.Models.Product import Product
 
 class TestProduct(unittest.TestCase):
   def testModel(self) -> None:
-    model: Product = \
+    data: Product = \
       Product()
 
-    self.assertIsNone(model.id)
-    self.assertIsNone(model.name)
+    self.assertIsNone(data.id)
+    self.assertIsNone(data.name)
 
-    model.id = uuid4()
-    model.name = "name"
+    data.id = uuid4()
+    data.name = "name"
 
-    self.assertIsNotNone(model.id)
-    self.assertIsNotNone(model.name)
+    self.assertIsNotNone(data.id)
+    self.assertIsNotNone(data.name)
 
   def testModelToDict(self) -> None:
-    dict: Product = \
-      Product(name="name").toDict()
+    data: Product = \
+      Product(name = "name").toDict()
 
-    self.assertIsNone(dict["id"])
-    self.assertIsNotNone(dict["name"])
+    self.assertNotIn("id", data)
+    self.assertIsNotNone(data["name"])
 
-    dict["id"] = uuid4()
+    data["id"] = uuid4()
 
-    self.assertIsNotNone(dict["id"])
-    self.assertIsNotNone(dict["name"])
+    self.assertIsNotNone(data["id"])
+    self.assertIsNotNone(data["name"])

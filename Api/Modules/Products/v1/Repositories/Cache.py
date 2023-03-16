@@ -21,10 +21,13 @@ class ProductsCacheRepository:
       json.loads(product) for product in self.cache.mget(self.cache.keys())
     ]
 
-  def get(self, product_id: UUID) -> str:
+  def get(self, product_id: UUID) -> dict:
     return json.loads(self.cache.get(str(product_id)) or "{}")
 
   def update(self, product: Product) -> None:
+    for key, value in dict(self.get(str(product.id)), **product.toDict()).items():
+      setattr(product, key, value)
+
     self.create(product)
 
   def delete(self, product_id: UUID) -> None:
