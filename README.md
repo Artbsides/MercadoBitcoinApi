@@ -8,7 +8,9 @@ Para fins de armazenamento de dados, esta aplicação faz uso de PostgreSQL como
 
 # Lógica Aplicada
 
-Por se tratar de uma aplicação CRUD simples, a lógica existente está relacionada aos storages, sendo assim, toda ação é feita primeiramente em Redis ou em Postgres dependendo do seu tipo, porém, sempre em ambos. Segue abaixo o fluxo exemplificando operações de consulta.
+Por se tratar de uma aplicação CRUD simples, a lógica existente está relacionada aos storages, sendo assim, toda ação é feita primeiramente em Redis ou em PostgreSQL dependendo do seu tipo, porém, sempre em ambos.
+
+Segue abaixo o fluxo exemplificando operações de consulta.
 
 ```
 [GET REQUEST/products/{id-do-produto}]
