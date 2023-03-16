@@ -27,7 +27,7 @@ jobs:
           pip install -r Requirements/development.txt
       - name: Tests
         run: |
-          make tests
+          python -m pytest
 
   CodeConvention:
     runs-on: ubuntu-22.04
@@ -49,4 +49,4 @@ jobs:
           pip install -r Requirements/development.txt
       - name: Code Convention
         run: |
-          make code-convention
+          flake8 Api ApiTests
