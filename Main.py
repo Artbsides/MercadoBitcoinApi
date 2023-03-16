@@ -3,8 +3,6 @@ import uvicorn
 import dotenv
 
 from fastapi import Depends, FastAPI
-from fastapi.exceptions import RequestValidationError
-from fastapi.responses import PlainTextResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from Api.Utils.Authorization import Authorization
@@ -19,7 +17,7 @@ app = FastAPI(
   dependencies = [
     Depends(Authorization())
   ],
-  redoc_url = None, docs_url = None if APP_ENVIRONMENT != "development" else "/docs"
+  redoc_url = None, docs_url = None if APP_ENVIRONMENT == "production" else "/docs"
 )
 
 app.include_router(router)
