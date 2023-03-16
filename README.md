@@ -184,10 +184,11 @@ Quanto ao deploy, esta action utiliza workflows compartihados e assim como as va
 
 # Melhorias Necessárias
 
-* Formatação de erros e exceptions
+* Validação de erros e exceptions
 * Injeção de dependência no controller de forma única
 * Validar versionamento de rotas através de headers ao invés de url contendo versão
-* Gerar rotas no Postman contendo exemplos de uso e retornos
+* Implementação de testes que abordem mais cenários esperados
+* Gerar arquivos para utilização no Postman contendo exemplos de uso e seus respectiovos retornos
 
 # Pricipais Tecnologias Utilizadas
 

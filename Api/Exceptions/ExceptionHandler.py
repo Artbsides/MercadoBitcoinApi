@@ -8,11 +8,9 @@ from Api.Exceptions.Throws.InternalServerError import InternalServerError
 
 
 class ExceptionHandler:
-  def throw(_: Request, exception: Exception|HTTPException) -> JSONResponse:
-    klass: str = type(exception).__name__
-
-    if getattr(exception, "status_code", None) == HTTPStatus.NOT_FOUND:
-      klass = "NotFound"
+  def throw(_: Request, exception: Exception | HTTPException) -> JSONResponse:
+    klass: str = "NotFound" \
+      if getattr(exception, "status_code", None) == HTTPStatus.NOT_FOUND else type(exception).__name__
 
     try:
       exception: Exception = \
