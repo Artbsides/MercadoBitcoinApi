@@ -141,7 +141,7 @@ $ curl --location --request DELETE 'http://127.0.0.1:8000/v1/products/71befe2a-5
 
 As variáveis de ambiente estão configuradas no arquivo .env e estão organizadas por tipo de uso, setadas para desenvolvimento local. Toda configuração é aplicada automaticamente tanto para inicialização em ambiente Docker quanto em máquina local.
 
-Caso seja necessário alterar alguma variável, basta editá-las. As alterações serão aplicadas em todos os modos de inicialização.
+Caso seja necessário alterar alguma variável, basta editá-las. As alterações serão aplicadas em todos os modos de inicialização (reconstrua as imagens caso for inicializar a aplicação em modo latest).
 
 * Lembre-se de atribuir valor à variável de ambiente JWT_SECRETS. Para gerar um token válido, acesse o site do JWT e altere a data de expiração utilizando a mesma chave de segurança configurada nas variáveis de ambiente (JWT_SECRETS) sem encodar em Base64.
 
