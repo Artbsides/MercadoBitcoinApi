@@ -18,7 +18,7 @@ Segue abaixo o fluxo exemplificando operações de consulta.
     |-->[API verifica se registro existe em Redis]
             |
             |-->[Se sim, retorna dados do Redis]
-            |-->[Se não, verifica se registro existe em Postgres]
+            |-->[Se não, verifica se registro existe em PostgreSQL]
                     |
                     |-->[Se sim, retorna dados do Postgres]
                     |-->[Se não, lança exception NotFound]
