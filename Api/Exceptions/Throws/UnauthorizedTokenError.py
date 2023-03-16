@@ -2,10 +2,10 @@ from http import HTTPStatus
 from typing import Optional
 
 
-class UnauthoeizedTokenError(Exception):
+class UnauthorizedTokenError(Exception):
   def __init__(self, exception: Optional[Exception] = None) -> None:
     self.attrs: dict = {
-      "title": "Unauthoeized",
+      "title": "Unauthorized",
       "error_messages": [
         "Check your bearer token, you might not be authorized"
       ]

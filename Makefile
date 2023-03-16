@@ -47,7 +47,7 @@ database-migrations:  ## Run alembic database migrations
 		docker-compose -f compose.yml -f compose.development.yml up appalembic upgrade head
 
 tests: -B  ## Run api tests
-	@COMPOSE_DEVELOPMENT_COMMAND="python -m pytest" \
+	@COMPOSE_DEVELOPMENT_COMMAND="python -m pytest -s" \
 		docker-compose -f compose.yml -f compose.development.yml up app
 
 code-convention:  ## Run code convention

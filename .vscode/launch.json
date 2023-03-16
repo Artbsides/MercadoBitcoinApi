@@ -7,7 +7,7 @@
       "request": "launch",
       "module": "uvicorn",
       "args": [
-        "Api.Main:app", "--reload"
+        "Main:app", "--reload"
       ],
       "jinja": true,
       "justMyCode": true
