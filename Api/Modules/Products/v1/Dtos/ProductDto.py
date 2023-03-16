@@ -27,7 +27,7 @@ class ProductDto:
 
     def toModel(self, product_id: Optional[UUID] = None) -> Product:
       product: Product = Product()
-      
+
       for key, value in self.dict().items():
         setattr(product, key, value)
 

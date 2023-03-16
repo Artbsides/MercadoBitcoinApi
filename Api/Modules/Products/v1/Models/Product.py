@@ -1,4 +1,3 @@
-from typing import Optional
 from sqlalchemy import Column, Uuid, String, Float, Integer, text
 from Api.Confs.Database import Base
 

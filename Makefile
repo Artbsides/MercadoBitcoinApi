@@ -39,7 +39,7 @@ postgres:  ## Up postgres in background mode
 	@docker-compose up -d postgres
 
 packages:  ## Run pip install packages
-	@COMPOSE_DEVELOPMENT_COMMAND="pip install -r requirements/tests.txt" \
+	@COMPOSE_DEVELOPMENT_COMMAND="pip install -r Requirements/development.txt" \
 		docker-compose -f compose.yml -f compose.development.yml up app
 
 database-migrations:  ## Run alembic database migrations
@@ -47,7 +47,7 @@ database-migrations:  ## Run alembic database migrations
 		docker-compose -f compose.yml -f compose.development.yml up app
 
 tests: -B  ## Run api tests
-	@COMPOSE_DEVELOPMENT_COMMAND="python -m pytest -s" \
+	@COMPOSE_DEVELOPMENT_COMMAND="python -m pytest" \
 		docker-compose -f compose.yml -f compose.development.yml up app
 
 code-convention:  ## Run code convention
