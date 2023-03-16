@@ -1,6 +1,6 @@
 # MercadoBitcoinApi
 
-Aplicação CRUD desenvolvida em [Python 3.11.12](https://www.python.org), focada no gerenciamento básico de dados.
+Aplicação CRUD desenvolvida em [Python 3.11.12](https://www.python.org), focada no gerenciamento de produtos.
 
 # Armazenamento de Dados
 
