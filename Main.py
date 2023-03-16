@@ -17,7 +17,7 @@ app = FastAPI(
   dependencies = [
     Depends(Authorization())
   ],
-  redoc_url = None, docs_url = None if APP_ENVIRONMENT != "production" else "/docs"
+  redoc_url = None, docs_url = None if APP_ENVIRONMENT == "production" else "/docs"
 )
 
 app.include_router(router)
