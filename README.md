@@ -28,9 +28,9 @@ Segue abaixo o fluxo exemplificando operações de consulta.
 
 # Instalação
 
-Este aplicação foi desenvolvida sob linux utilizando de algumas ferramentas excenciais, sendo assim, é necessário instalar as dependências do projeto listadas abaixo para que seja possível subir todos os serviços para sua execução.
+Esta aplicação foi desenvolvida sob linux utilizando de algumas ferramentas excenciais, sendo assim, é necessário instalar as dependências do projeto listadas abaixo para que seja possível subir todos os serviços para sua execução.
 
-Dependências para execução dockerizada (necessário também para execução de banco de dados):
+Dependências para execução dockerizada (necessário também para execução dos storages):
 
 ```
 Make
@@ -46,13 +46,13 @@ Python v3.11.2+
 
 Após certificar-se de que as dependências estejam instaladas na máquina que irá executar esta aplicação, pode-se facilmente subir os serviços utilizando os comandos listados no arquivo Makefile.
 
-Para execução da aplicão completamente dockerizada, não se faz necessária a instalação das dempendências para exeução em máquina local.
+Para execução da aplicão completamente dockerizada, não se faz necessária a instalação das dependências para exeução em máquina local.
 
 # Makefile
 
-O arquivo Makefile possui comandos pré-configurados que auxiliam algumas rotinas em ambiente dockerizado, tais como: Disponibilizar banco de dados e cache, inicializar a aplicação, excução de testes e convenção de código, assim como também manipular arquivos contendo variáveis de ambiente encriptadas e tags no github.
+O arquivo Makefile possui comandos pré-configurados que auxiliam algumas rotinas em ambiente dockerizado, tais como: disponibilizar banco de dados e cache, inicializar a aplicação, excução de testes e convenção de código, assim como também manipular arquivos contendo variáveis de ambiente encriptadas e tags no github.
 
-Para exibir a relação de comandos disponíveis e seus respectivos modos de uso, basta aplicar um dos dois comandos abaixo:
+Para exibir a relação de comandos disponíveis e seus respectivos modos de uso, basta aplicar um dos seguintes comandos:
 
 ```
 $ make
@@ -69,14 +69,14 @@ Para a construção das imagens, aplique o comando abaixo:
 $ make build
 ```
 
-Após a construção das imagens, é necessário disponibilizar o banco de dados e cache. Para isso, aplique os comandos abaixo:
+Após a construção das imagens, é necessário disponibilizar os storages. Para isso, aplique os comandos abaixo:
 
 ```
 $ make redis
 $ make postgres
 ```
 
-Uma vez que o banco de dados esteja disponível, é necessário aplicar a migração das tabelas, porém, é necessário instalar as dependências do projeto antes disso, sendo assim, aplique os comandos abaixo:
+Uma vez que os storages estejam disponíveis, é necessário aplicar a migração das tabelas no PostgreSQL, porém, pode ser necessário instalar as dependências do projeto antes disso, sendo assim, aplique os comandos abaixo:
 
 ```
 $ make packages
@@ -96,10 +96,10 @@ Por fim, para inicializar a aplicação basta aplicar o seguinte abaixo:
 $ make run mode=development|latest
 ```
 
-Caso corra tudo conforme o esperado e nenhuma variável de ambiente tenha sido previamente modificada, a aplicação estará disponível na url http://127.0.0.1:8000.
+Caso corra tudo conforme o esperado e nenhuma variável de ambiente tenha sido previamente modificada, a aplicação estará disponível na url: http://127.0.0.1:8000.
 # Utilização
 
-Esta aplicação foi implementada de forma modular e versionável, porém, até o momento não foram gerados arquivos para interação utilzando Postman, sendo assim, segue a lista de rotas existentes e suas formas de uso.
+Esta aplicação foi implementada de forma modular e versionável, porém, até o momento não foram gerados arquivos para interação utilzando [Postman](https://www.postman.com), sendo assim, segue a lista de rotas existentes e suas formas de uso.
 
 Criação de produtos:
 ```
@@ -139,7 +139,7 @@ $ curl --location --request DELETE 'http://127.0.0.1:8000/v1/products/71befe2a-5
 
 # Variáveis de Ambiente
 
-As variáveis de ambiente estão configuradas no arquivo .env e estão organizadas por tipo de uso, setadas para desenvolvimento local e toda configuração é aplicada automaticamente tanto para inicialização em ambiente Docker quanto em máquina local.
+As variáveis de ambiente estão configuradas no arquivo .env e estão organizadas por tipo de uso, setadas para desenvolvimento local. Toda configuração é aplicada automaticamente tanto para inicialização em ambiente Docker quanto em máquina local.
 
 Caso seja necessário alterar alguma variável, basta editá-las. As alterações serão aplicadas em todos os modos de inicialização.
 
@@ -191,8 +191,8 @@ Quanto ao deploy, esta action utiliza workflows compartihados e assim como as va
 
 # Pricipais Tecnologias Utilizadas
 
-[FasAPI](https://fastapi.tiangolo.com)
-[Alembic](https://alembic.sqlalchemy.org)
-[SqlAlchemy](https://www.sqlalchemy.org)
-[Redis](https://redis.io)
-[PostgreSQL](https://www.postgresql.org)
+* [FasAPI](https://fastapi.tiangolo.com)
+* [Alembic](https://alembic.sqlalchemy.org)
+* [SqlAlchemy](https://www.sqlalchemy.org)
+* [Redis](https://redis.io)
+* [PostgreSQL](https://www.postgresql.org)
