@@ -60,7 +60,7 @@ ifeq ("$(action)", "encrypt")
 	@SECRETS_PUBLIC_KEY="$$(cat $$SECRETS_PATH/.sops.yml | awk "/age:/" | sed "s/.*: *//" | xargs -d "\r")"
 
 	@sops -e -i --encrypted-regex "^(data|stringData)$$" -a $$SECRETS_PUBLIC_KEY \
-	  $$SECRETS_PATH/.secrets.yml
+		$$SECRETS_PATH/.secrets.yml
 
 	@echo "==== Ok"
 
@@ -68,7 +68,7 @@ else ifeq ("$(action)", "decrypt")
 	@SECRETS_KEY="$$(kubectl get secret sops-age --namespace argocd -o yaml | awk "/sops-age.txt:/" | sed "s/.*: *//" | base64 -d)"
 
 	@SOPS_AGE_KEY=$$SECRETS_KEY sops -d -i .k8s/$(environment)/secrets/.secrets.yml && \
-	  echo "==== Ok"
+		echo "==== Ok"
 
 else
 	@echo "==== Action not found."
@@ -77,11 +77,11 @@ endif
 github-tag:  ## Create or delete github tags. action=create|delete tag=[0-9].[0-9].[0-9]-staging|[0-9].[0-9].[0-9]
 ifeq ("$(action)", "create")
 	@git tag $(tag) && \
-	  git push origin $(tag)
+		git push origin $(tag)
 
 else ifeq ("$(action)", "delete")
 	@git tag -d $(tag) && \
-	  git push origin :refs/tags/$(tag)
+		git push origin :refs/tags/$(tag)
 
 else
 	@echo "==== Action not found."
