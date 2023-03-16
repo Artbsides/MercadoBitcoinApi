@@ -10,6 +10,7 @@ from Api.Exceptions.ExceptionHandler import ExceptionHandler
 
 APP_ENVIRONMENT = os.getenv("APP_ENVIRONMENT", "development")
 
+
 app = FastAPI(
   dependencies = [
     Depends(Authorization())
