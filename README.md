@@ -107,26 +107,34 @@ $ curl --location 'http://127.0.0.1:8000/v1/products' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MTYyMzkwMjJ9.RHTJ6ziBOktHKqiGE-HhBQUrr-7gTJJDdAdg1-r38oI' \
 --header 'Content-Type: application/json' \
 --data '{
-    "name": "Product One"
+    "name": "POne",
+    "description": "Product One",
+    "price": 125.45,
+    "stock": 12
 }'
 ```
 
 Leitura de produtos:
 ```
-$ curl --location 'http://127.0.0.1:8000/v1/products/71befe2a-571e-4992-b3ae-c78ee77291ce' \
+$ curl --location 'http://127.0.0.1:8000/v1/products' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MTYyMzkwMjJ9.RHTJ6ziBOktHKqiGE-HhBQUrr-7gTJJDdAdg1-r38oI'
 ```
 
 Leitura de um único produto:
 ```
-$ curl --location 'http://127.0.0.1:8000/v1/products' \
+$ curl --location 'http://127.0.0.1:8000/v1/products/71befe2a-571e-4992-b3ae-c78ee77291ce' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MTYyMzkwMjJ9.RHTJ6ziBOktHKqiGE-HhBQUrr-7gTJJDdAdg1-r38oI'
 ```
 
 Atualização de um único produto:
 ```
 $ curl --location --request PATCH 'http://127.0.0.1:8000/v1/products/71befe2a-571e-4992-b3ae-c78ee77291ce' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MTYyMzkwMjJ9.RHTJ6ziBOktHKqiGE-HhBQUrr-7gTJJDdAdg1-r38oI'
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MTYyMzkwMjJ9.RHTJ6ziBOktHKqiGE-HhBQUrr-7gTJJDdAdg1-r38oI' \
+--header 'Content-Type: application/json' \
+--data '{
+    "stock": 1,
+    "price": 150.00
+}'
 ```
 
 Deleção de um único produto:
